@@ -1,0 +1,10 @@
+2026-02-20 04:02:07,918 - utils - DEBUG - Reading transactions from: dummy.json
+2026-02-20 04:02:07,920 - utils - DEBUG - Successfully read 1 transactions
+2026-02-20 04:02:07,923 - utils - DEBUG - Reading transactions from: non_existent.json
+2026-02-20 04:02:07,923 - utils - ERROR - File not found: non_existent.json
+2026-02-20 04:02:07,931 - utils - DEBUG - Reading transactions from: empty.json
+2026-02-20 04:02:07,931 - utils - ERROR - Error reading file empty.json: Expecting value: line 1 column 1 (char 0)
+2026-02-20 04:02:07,937 - utils - DEBUG - Reading transactions from: not_list.json
+2026-02-20 04:02:07,938 - utils - ERROR - Data is not a list in file: not_list.json
+2026-02-20 04:02:07,944 - utils - DEBUG - Reading transactions from: invalid.json
+2026-02-20 04:02:07,946 - utils - ERROR - Error reading file invalid.json: Expecting value: line 1 column 2 (char 1)

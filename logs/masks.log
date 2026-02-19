@@ -1,0 +1,16 @@
+2026-02-20 04:02:07,889 - masks - DEBUG - Masking card number: 7000792289606361
+2026-02-20 04:02:07,889 - masks - DEBUG - Successfully masked card number: 7000 79** **** 6361
+2026-02-20 04:02:07,893 - masks - DEBUG - Masking card number: 1234567812345678
+2026-02-20 04:02:07,893 - masks - DEBUG - Successfully masked card number: 1234 56** **** 5678
+2026-02-20 04:02:07,896 - masks - DEBUG - Masking card number: 123456
+2026-02-20 04:02:07,896 - masks - DEBUG - Successfully masked card number: 1234 56** **** 3456
+2026-02-20 04:02:07,898 - masks - DEBUG - Masking card number: 
+2026-02-20 04:02:07,898 - masks - DEBUG - Empty card number provided
+2026-02-20 04:02:07,901 - masks - DEBUG - Masking account number: 73654108430135874305
+2026-02-20 04:02:07,903 - masks - DEBUG - Successfully masked account number: **4305
+2026-02-20 04:02:07,905 - masks - DEBUG - Masking account number: 123456
+2026-02-20 04:02:07,905 - masks - DEBUG - Successfully masked account number: **3456
+2026-02-20 04:02:07,907 - masks - DEBUG - Masking account number: 123
+2026-02-20 04:02:07,907 - masks - DEBUG - Account number too short: 123
+2026-02-20 04:02:07,908 - masks - DEBUG - Masking account number: 
+2026-02-20 04:02:07,910 - masks - DEBUG - Account number too short: 
