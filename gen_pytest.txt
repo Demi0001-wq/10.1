@@ -1,0 +1,16 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-7.4.3, pluggy-1.6.0
+rootdir: C:\Users\DELL\Desktop\demi
+plugins: anyio-3.7.1, langsmith-0.4.59, asyncio-0.21.1, cov-7.0.0
+asyncio: mode=Mode.STRICT
+collected 5 items
+
+tests\test_generators.py .....                                           [100%]
+WARNING: Failed to generate report: No data to report.
+
+
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+============================== 5 passed in 0.09s ==============================

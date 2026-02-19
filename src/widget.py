@@ -1,8 +1,12 @@
-from src.masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
+    """Mask account or card information."""
     parts = info.split()
+    if not parts:
+        return ""
     number = parts[-1]
     name = " ".join(parts[:-1])
 
@@ -13,6 +17,12 @@ def mask_account_card(info: str) -> str:
 
 
 def get_date(date_string: str) -> str:
-    date_part = date_string.split("T")[0]
-    year, month, day = date_part.split("-")
-    return f"{day}.{month}.{year}"
+    """Format date string."""
+    if not date_string:
+        return ""
+    try:
+        date_part = date_string.split("T")[0]
+        year, month, day = date_part.split("-")
+        return f"{day}.{month}.{year}"
+    except (ValueError, IndexError):
+        return ""

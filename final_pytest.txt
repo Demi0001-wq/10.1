@@ -1,0 +1,61 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-7.4.3, pluggy-1.6.0 -- C:\Users\DELL\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\DELL\Desktop\demi
+plugins: anyio-3.7.1, langsmith-0.4.59, asyncio-0.21.1, cov-7.0.0
+asyncio: mode=Mode.STRICT
+collecting ... collected 26 items
+
+tests/test_generators.py::test_filter_by_currency PASSED                 [  3%]
+tests/test_generators.py::test_transaction_descriptions PASSED           [  7%]
+tests/test_generators.py::test_card_number_generator PASSED              [ 11%]
+tests/test_generators.py::test_filter_by_currency_empty PASSED           [ 15%]
+tests/test_generators.py::test_transaction_descriptions_empty PASSED     [ 19%]
+tests/test_masks.py::test_get_mask_card_number[7000792289606361-7000 79** **** 6361] PASSED [ 23%]
+tests/test_masks.py::test_get_mask_card_number[1234567812345678-1234 56** **** 5678] PASSED [ 26%]
+tests/test_masks.py::test_get_mask_card_number[123456-1234 56** **** 3456] PASSED [ 30%]
+tests/test_masks.py::test_get_mask_card_number[-] PASSED                 [ 34%]
+tests/test_masks.py::test_get_mask_account[73654108430135874305-**4305] PASSED [ 38%]
+tests/test_masks.py::test_get_mask_account[123456-**3456] PASSED         [ 42%]
+tests/test_masks.py::test_get_mask_account[123-***] PASSED               [ 46%]
+tests/test_masks.py::test_get_mask_account[-] PASSED                     [ 50%]
+tests/test_processing.py::test_filter_by_state PASSED                    [ 53%]
+tests/test_processing.py::test_sort_by_date[True-2019-07-03T18:35:29.512364] PASSED [ 57%]
+tests/test_processing.py::test_sort_by_date[False-2018-06-30T02:08:58.425572] PASSED [ 61%]
+tests/test_processing.py::test_sort_by_date_same_dates PASSED            [ 65%]
+tests/test_processing.py::test_sort_by_date_empty PASSED                 [ 69%]
+tests/test_widget.py::test_mask_account_card[Visa Platinum 7000792289606361-Visa Platinum 7000 79** **** 6361] PASSED [ 73%]
+tests/test_widget.py::test_mask_account_card[\u0421\u0447\u0435\u0442 73654108430135874305-\u0421\u0447\u0435\u0442 **4305] PASSED [ 76%]
+tests/test_widget.py::test_mask_account_card[Maestro 1596837405946281-Maestro 1596 83** **** 6281] PASSED [ 80%]
+tests/test_widget.py::test_mask_account_card[Account 12345678901234567890-Account **7890] PASSED [ 84%]
+tests/test_widget.py::test_get_date[2024-03-11T02:26:18.671407-11.03.2024] PASSED [ 88%]
+tests/test_widget.py::test_get_date[2018-12-31T23:59:59-31.12.2018] PASSED [ 92%]
+tests/test_widget.py::test_mask_account_card_invalid FAILED              [ 96%]
+tests/test_widget.py::test_get_date_invalid PASSED                       [100%]
+
+================================== FAILURES ===================================
+_______________________ test_mask_account_card_invalid ________________________
+
+    def test_mask_account_card_invalid() -> None:
+        # Should handle empty input gracefully or as implemented
+>       assert mask_account_card("Visa 123") == "Visa **123"
+E       AssertionError: assert 'Visa 123* **** *123 ' == 'Visa **123'
+E         - Visa **123
+E         + Visa 123* **** *123
+
+tests\test_widget.py:27: AssertionError
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Name                Stmts   Miss  Cover   Missing
+-------------------------------------------------
+src\__init__.py         0      0   100%
+src\generators.py      14      0   100%
+src\masks.py            9      0   100%
+src\processing.py       4      0   100%
+src\widget.py          20      1    95%   9
+-------------------------------------------------
+TOTAL                  47      1    98%
+=========================== short test summary info ===========================
+FAILED tests/test_widget.py::test_mask_account_card_invalid - AssertionError:...
+======================== 1 failed, 25 passed in 0.32s =========================

@@ -1,0 +1,23 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-7.4.3, pluggy-1.6.0
+rootdir: C:\Users\DELL\Desktop\demi
+plugins: anyio-3.7.1, langsmith-0.4.59, asyncio-0.21.1, cov-7.0.0
+asyncio: mode=Mode.STRICT
+collected 8 items
+
+tests\test_widget.py ......F.                                            [100%]
+
+================================== FAILURES ===================================
+_______________________ test_mask_account_card_invalid ________________________
+
+    def test_mask_account_card_invalid() -> None:
+        # Should handle empty input gracefully or as implemented
+>       assert mask_account_card("Visa 123") == "Visa **123"
+E       AssertionError: assert 'Visa 123* **** *123 ' == 'Visa **123'
+E         - Visa **123
+E         + Visa 123* **** *123
+
+tests\test_widget.py:27: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_widget.py::test_mask_account_card_invalid - AssertionError:...
+========================= 1 failed, 7 passed in 0.14s =========================
