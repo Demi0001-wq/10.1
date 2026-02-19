@@ -1,4 +1,6 @@
-from unittest.mock import mock_open, patch
+from unittest.mock import mock_open
+from unittest.mock import patch
+
 from src.utils import get_transactions
 
 

@@ -1,28 +1,25 @@
-# Banking Operations Widget
+Banking Operations Widget
 
-Banking utility for masking data, processing transaction records, and automated logging.
+Banking utility for masking data, processing transactions, and logging.
 
-## Features
-- **Masking**: Card and account numbers.
-- **Processing**: Filtering and sorting transactions.
-- **Generators**: Efficient iterative processing.
-- **Decorators**: Automated function logging.
+Features
+Masking card and account numbers
+Filtering and sorting transactions
+Iterative processing with generators
+Automated function logging
+CSV and Excel file reading support
+Regular expression search
 
-## Generators Module
-The `src/generators.py` module provides tools for working with large volumes of transaction data:
-- `filter_by_currency`: Filters transactions by currency code.
-- `transaction_descriptions`: Yields descriptions for each transaction.
-- `card_number_generator`: Generates bank card numbers in `XXXX XXXX XXXX XXXX` format.
+How to Run
 
-## Decorators Module
-The `src/decorators.py` module provides the `@log` decorator:
-- Logs function name and result on success.
-- Logs function name, error type, and inputs on failure.
-- Optional `filename` argument to log to a file instead of the console.
+1 Install Dependencies
+pip install pandas openpyxl requests python-dotenv
 
-## Testing
-Run tests with coverage:
-```bash
+2 Set Up API Key
+Create .env file and add API_KEY=your_key
+
+3 Example Usage
+python main.py
+
+Testing
 pytest --cov=src --cov-report=term-missing
-```
-HTML coverage reports are saved in the `htmlcov/` directory.

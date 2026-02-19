@@ -23,8 +23,8 @@ def test_get_date(date_str: str, expected: str) -> None:
 
 
 def test_mask_account_card_invalid() -> None:
-    # Should handle empty input gracefully or as implemented
-    assert mask_account_card("Visa 123") == "Visa **123"
+    # Should handle empty input gracefully
+    assert mask_account_card("") == ""
 
 
 def test_get_date_invalid() -> None:

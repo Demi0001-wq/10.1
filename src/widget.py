@@ -3,7 +3,10 @@ from src.masks import get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
+    """Mask account or card information."""
     parts = info.split()
+    if not parts:
+        return ""
     number = parts[-1]
     name = " ".join(parts[:-1])
 
