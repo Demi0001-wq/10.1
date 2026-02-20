@@ -5,7 +5,7 @@ class Category:
     """Class representing a category of products."""
     name: str
     description: str
-    products: list[Product]
+    __products: list[Product]
 
     # Class attributes to track total counts
     category_count = 0
@@ -20,8 +20,30 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = []
 
-        # Update class-level counters
+        # Update category count
         Category.category_count += 1
-        Category.product_count += len(products)
+        
+        # Add products via the add_product method
+        for product in products:
+            self.add_product(product)
+
+    def add_product(self, product: Product) -> None:
+        """
+        Add a product to the category and increment the class product counter.
+        """
+        self.__products.append(product)
+        Category.product_count += 1
+
+    @property
+    def products(self) -> str:
+        """
+        Getter that returns a string representation of all products in the category.
+        Format: "Название продукта, X руб. Остаток: X шт.\n"
+        """
+        result = [
+            f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт."
+            for p in self.__products
+        ]
+        return "\n".join(result) + "\n" if result else ""

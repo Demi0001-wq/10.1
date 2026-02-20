@@ -1,8 +1,11 @@
+from typing import Any, Optional
+
+
 class Product:
     """Class representing a product in the store."""
     name: str
     description: str
-    price: float
+    __price: float
     quantity: int
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -15,5 +18,46 @@ class Product:
         """
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
+
+    @classmethod
+    def new_product(cls, data: dict[str, Any], existing_products: Optional[list["Product"]] = None) -> "Product":
+        """
+        Class method to create or update a Product instance from a dictionary.
+        If a product with the same name exists in existing_products, it updates it.
+        """
+        name = data["name"]
+        description = data["description"]
+        price = data["price"]
+        quantity = data["quantity"]
+
+        if existing_products:
+            for product in existing_products:
+                if product.name == name:
+                    # Update found product
+                    product.quantity += quantity
+                    if price > product.price:
+                        product.price = price
+                    return product
+
+        return cls(name, description, price, quantity)
+
+    @property
+    def price(self) -> float:
+        """Getter for the price attribute."""
+        return self.__price
+
+    @price.setter
+    def price(self, value: float) -> None:
+        """Setter for the price attribute with validation and manual confirmation."""
+        if value <= 0:
+            print("Цена не должна быть нулевая или отрицательная")
+            return
+
+        if value < self.__price:
+            confirm = input("Цена понижается. Вы уверены? (y/n): ")
+            if confirm.lower() == "y":
+                self.__price = value
+        else:
+            self.__price = value
