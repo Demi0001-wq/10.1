@@ -29,6 +29,15 @@ class Category:
         for product in products:
             self.add_product(product)
 
+    def __str__(self) -> str:
+        """
+        String representation of the category.
+        Format: "Название категории, количество продуктов: X шт."
+        Where X is the total quantity of all goods in the warehouse.
+        """
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
     def add_product(self, product: Product) -> None:
         """
         Add a product to the category and increment the class product counter.
@@ -36,14 +45,15 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
+    def get_products(self) -> list[Product]:
+        """Returns the list of products."""
+        return self.__products
+
     @property
     def products(self) -> str:
         """
         Getter that returns a string representation of all products in the category.
-        Format: "Название продукта, X руб. Остаток: X шт.\n"
+        Uses the Product.__str__ implementation.
         """
-        result = [
-            f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт."
-            for p in self.__products
-        ]
+        result = [str(p) for p in self.__products]
         return "\n".join(result) + "\n" if result else ""

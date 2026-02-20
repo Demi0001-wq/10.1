@@ -21,6 +21,22 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        """
+        String representation of the product.
+        Format: "Название продукта, X руб. Остаток: X шт."
+        """
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: Any) -> float:
+        """
+        Magic method for adding two products.
+        Returns the sum of (price * quantity) for both products.
+        """
+        if not isinstance(other, Product):
+            raise TypeError("Can only add two Product objects.")
+        return (self.__price * self.quantity) + (other.__price * other.quantity)
+
     @classmethod
     def new_product(cls, data: dict[str, Any], existing_products: Optional[list["Product"]] = None) -> "Product":
         """
