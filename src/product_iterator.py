@@ -8,12 +8,8 @@ class ProductIterator:
     def __init__(self, category_obj) -> None:
         """
         Initialize the iterator with a category object.
-        Retrieves the private __products list.
         """
-        # Note: Accessing private attribute __products via name mangling
-        # or we could make it a property in Category.
-        # But per the task, we pass a category object.
-        self.products = category_obj.get_products()
+        self.products = category_obj._Category__products
         self.index = 0
 
     def __iter__(self):

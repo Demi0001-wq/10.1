@@ -22,4 +22,4 @@ class Order(BaseCategory):
     @property
     def products(self) -> str:
         """Returns the product description in the order."""
-        return f"{self.product.name} (x{self.quantity})"
+        return f"{self.product.name} x {self.quantity}"

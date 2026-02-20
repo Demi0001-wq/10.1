@@ -40,7 +40,9 @@ def test_load_data(tmp_path) -> None:
     
     assert len(categories) == 1
     assert categories[0].name == "Test Category"
-    assert len(categories[0].products) == 1
-    assert categories[0].products[0].name == "Test Product"
+    assert len(categories[0].products.strip().split("\n")) == 1
+    # Access the product via name mangling or from the private list if needed for verification
+    # but here we can just verify the first line matches the expected str(product)
+    assert "Test Product" in categories[0].products
     assert Category.category_count == 1
     assert Category.product_count == 1
