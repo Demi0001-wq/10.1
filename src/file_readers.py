@@ -1,5 +1,7 @@
+from typing import Any
+from typing import cast
+
 import pandas as pd
-from typing import Any, cast
 
 
 def read_csv(path: str) -> list[dict[str, Any]]:

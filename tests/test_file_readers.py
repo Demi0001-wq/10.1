@@ -1,6 +1,9 @@
 from unittest.mock import patch
+
 import pandas as pd
-from src.file_readers import read_csv, read_excel
+
+from src.file_readers import read_csv
+from src.file_readers import read_excel
 
 
 def test_read_csv_success() -> None:
