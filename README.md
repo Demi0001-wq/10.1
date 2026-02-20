@@ -1,33 +1,24 @@
 # Skystore E-commerce Project
 
-<<<<<<< Updated upstream
-This project implements the foundational logic for an e-commerce platform using Object-Oriented Programming (OOP) principles in Python.
+Foundational core for an e-commerce platform using Object-Oriented Programming (OOP) in Python. This project implements the foundational logic for managing products, categories, and orders.
 
 ## Features
 
-- Product Management: Track name, description, price, and quantity.
-- Category Management: Group products and track global category/product statistics.
-- Encapsulation: Private attributes for sensitive data like price and product lists.
-- Data Integrity: Price validation with interactive confirmation for price drops.
-- JSON Loading: Ability to deserialize project data from a `products.json` file.
-- Smart Factory: Automated duplicate detection and merging in the `Product` class.
-- Inheritance: Specialized Smartphone and LawnGrass classes with specific attributes.
-- Type Safety: Addition is restricted to objects of the same class; Categories only accept Product instances.
-=======
-Foundational core for an e-commerce platform using Object-Oriented Programming (OOP) in Python.
-
-## Description
-This project implements the basic structure of an e-commerce system with `Product` and `Category` classes. It allows for tracking products, categories, and inventory statistics. Developed as part of the Skypro Python course (Lesson 14.1).
-
-## Features
-- **Product Management**: Store details like name, description, price, and quantity.
-- **Category Management**: Group products and descriptions.
-- **Automated Statistics**: 
-  - `Category.category_count`: Tracks the total number of unique categories.
-  - `Category.product_count`: Tracks the total number of unique products across all categories.
->>>>>>> Stashed changes
+- **Product Management**: Track name, description, price, and quantity with private price attributes.
+- **Category Management**: Group products and track global category/product statistics.
+- **Order Management**: Handle purchase orders for specific products and quantities.
+- **Magic Methods (Lesson 16.1)**:
+  - `__str__`: Clear string representation for Products and Categories.
+  - `__len__`: Total quantity of products in a category.
+  - `__add__`: Secure addition of products (restricted to same-class only).
+- **Inheritance & Abstraction**:
+  - `BaseProduct` & `BaseCategory` abstract classes for interface consistency.
+  - specialized `Smartphone` and `LawnGrass` subclasses.
+  - `PrintMixin` for automatic object creation logging.
+- **Encapsulation**: Strict type checking for adding products and price validation with interactive confirmation.
 
 ## Installation
+
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Demi0001-wq/10.1.git
@@ -39,7 +30,7 @@ This project implements the basic structure of an e-commerce system with `Produc
    ```
 3. **Install dependencies**:
    ```bash
-   pip install -r pyproject.toml  # or use poetry install
+   pip install -r requirements.txt
    ```
 
 ## Usage Example
@@ -48,33 +39,29 @@ This project implements the basic structure of an e-commerce system with `Produc
 from src.product import Product
 from src.category import Category
 
-# Create products
+# Create products (auto-logged by PrintMixin)
 p1 = Product("Samsung Galaxy S23 Ultra", "256GB, Gray", 180000.0, 5)
 p2 = Product("Iphone 15", "512GB, Gray", 210000.0, 8)
 
 # Create category
 cat = Category("Smartphones", "Modern mobile devices", [p1, p2])
 
-print(f"Total categories: {Category.category_count}")
-print(f"Total products: {Category.product_count}")
+# Magic methods in action
+print(str(p1))      # "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+print(len(cat))     # 13 (total quantity)
+print(p1 + p1)      # 1800000.0 (sum of price * quantity)
 ```
 
 ## Testing
-<<<<<<< Updated upstream
 
-To run the unit tests and check coverage:
-=======
-Unit tests are implemented to verify class logic. Run them using:
->>>>>>> Stashed changes
+To run the unit tests:
 ```bash
-poetry run pytest --cov=src
+pytest
 ```
-<<<<<<< Updated upstream
+To check coverage:
+```bash
+pytest --cov=src
+```
 
-### Quality Checks
-The project adheres to strict quality standards:
-- Linting: flake8
-- Type Checking: mypy
-- Import Sorting: isort
-=======
->>>>>>> Stashed changes
+### Metadata
+The project includes a `.gitignore` and `requirements.txt` for clean development and easy setup.
