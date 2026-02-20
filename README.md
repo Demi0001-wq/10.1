@@ -4,18 +4,18 @@ Foundational core for an e-commerce platform using Object-Oriented Programming (
 
 ## Features
 
-- **Product Management**: Track name, description, price, and quantity with private price attributes.
-- **Category Management**: Group products and track global category/product statistics.
-- **Order Management**: Handle purchase orders for specific products and quantities.
-- **Magic Methods (Lesson 16.1)**:
+- Product Management: Track name, description, price, and quantity with private price attributes.
+- Category Management: Group products and track global category/product statistics.
+- Order Management: Handle purchase orders for specific products and quantities.
+- Magic Methods (Lesson 16.1):
   - `__str__`: Clear string representation for Products and Categories.
   - `__len__`: Total quantity of products in a category.
   - `__add__`: Secure addition of products (restricted to same-class only).
-- **Inheritance & Abstraction**:
+- Inheritance & Abstraction:
   - `BaseProduct` & `BaseCategory` abstract classes for interface consistency.
   - specialized `Smartphone` and `LawnGrass` subclasses.
   - `PrintMixin` for automatic object creation logging.
-- **Encapsulation**: Strict type checking for adding products and price validation with interactive confirmation.
+- Encapsulation: Strict type checking for adding products and price validation with interactive confirmation.
 
 ## Installation
 
