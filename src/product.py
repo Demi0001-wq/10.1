@@ -1,49 +1,35 @@
 from typing import Any, Optional
 
-from src.base_product import BaseProduct
-from src.print_mixin import PrintMixin
 
-
-class Product(PrintMixin, BaseProduct):
+class Product:
     """Class representing a product in the store."""
     name: str
     description: str
     __price: float
     quantity: int
 
-    def __init__(self, name: str, description: str, price: float, quantity: int, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """
         Initialize a product.
-        Receives additional args/kwargs to pass to PrintMixin via super().
         """
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        # super() calls PrintMixin.__init__ with ALL arguments passed to this constructor
-        super().__init__(name, description, price, quantity, *args, **kwargs)
 
     def __str__(self) -> str:
         """
         String representation of the product.
         Format: "Название продукта, X руб. Остаток: X шт."
         """
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
-
-    def __add__(self, other: Any) -> float:
-        """
-        Magic method for adding two products.
-        Only objects of the exact same class can be added.
-        Returns the sum of (price * quantity) for both products.
-        """
-        if type(self) is not type(other):
-            raise TypeError("Can only add products of the same class.")
-        return (self.__price * self.quantity) + (other.__price * other.quantity)
+        p_price = int(self.price) if self.price == int(self.price) else self.price
+        return f"{self.name}, {p_price} руб. Остаток: {self.quantity} шт."
 
     @classmethod
     def new_product(cls, data: dict[str, Any], existing_products: Optional[list["Product"]] = None) -> "Product":
         """
         Class method to create or update a Product instance from a dictionary.
+        Task 3: If product exists, merges quantities and takes higher price.
         """
         name = data["name"]
         description = data["description"]
@@ -62,12 +48,15 @@ class Product(PrintMixin, BaseProduct):
 
     @property
     def price(self) -> float:
-        """Getter for the price attribute."""
+        """Getter for the private price attribute."""
         return self.__price
 
     @price.setter
     def price(self, value: float) -> None:
-        """Setter for the price attribute with validation."""
+        """
+        Setter for the price attribute with validation and confirmation.
+        Task 4: Checks for positive value and confirms price decrease.
+        """
         if value <= 0:
             print("Цена не должна быть нулевая или отрицательная")
             return
@@ -78,52 +67,3 @@ class Product(PrintMixin, BaseProduct):
                 self.__price = value
         else:
             self.__price = value
-
-
-class Smartphone(Product):
-    """Subclass representing a smartphone."""
-    efficiency: float
-    model: str
-    memory: int
-    color: str
-
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        efficiency: float,
-        model: str,
-        memory: int,
-        color: str,
-    ) -> None:
-        # We pass local attributes as extra positional arguments to Product.__init__
-        # so they can reach PrintMixin via super() chain.
-        self.efficiency = efficiency
-        self.model = model
-        self.memory = memory
-        self.color = color
-        super().__init__(name, description, price, quantity, efficiency, model, memory, color)
-
-
-class LawnGrass(Product):
-    """Subclass representing lawn grass."""
-    country: str
-    germination_period: str
-    color: str
-
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        country: str,
-        germination_period: str,
-        color: str,
-    ) -> None:
-        self.country = country
-        self.germination_period = germination_period
-        self.color = color
-        super().__init__(name, description, price, quantity, country, germination_period, color)
