@@ -10,6 +10,8 @@ This project implements the foundational logic for an e-commerce platform using 
 - Data Integrity: Price validation with interactive confirmation for price drops.
 - JSON Loading: Ability to deserialize project data from a `products.json` file.
 - Smart Factory: Automated duplicate detection and merging in the `Product` class.
+- Inheritance: Specialized Smartphone and LawnGrass classes with specific attributes.
+- Type Safety: Addition is restricted to objects of the same class; Categories only accept Product instances.
 
 ## Installation
 

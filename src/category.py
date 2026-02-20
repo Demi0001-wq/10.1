@@ -41,7 +41,10 @@ class Category:
     def add_product(self, product: Product) -> None:
         """
         Add a product to the category and increment the class product counter.
+        Only Product or its descendants can be added.
         """
+        if not isinstance(product, Product):
+            raise TypeError("Only products or their subclasses can be added to a category.")
         self.__products.append(product)
         Category.product_count += 1
 

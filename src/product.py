@@ -31,17 +31,17 @@ class Product:
     def __add__(self, other: Any) -> float:
         """
         Magic method for adding two products.
+        Only objects of the exact same class can be added.
         Returns the sum of (price * quantity) for both products.
         """
-        if not isinstance(other, Product):
-            raise TypeError("Can only add two Product objects.")
+        if type(self) is not type(other):
+            raise TypeError("Can only add products of the same class.")
         return (self.__price * self.quantity) + (other.__price * other.quantity)
 
     @classmethod
     def new_product(cls, data: dict[str, Any], existing_products: Optional[list["Product"]] = None) -> "Product":
         """
         Class method to create or update a Product instance from a dictionary.
-        If a product with the same name exists in existing_products, it updates it.
         """
         name = data["name"]
         description = data["description"]
@@ -51,7 +51,6 @@ class Product:
         if existing_products:
             for product in existing_products:
                 if product.name == name:
-                    # Update found product
                     product.quantity += quantity
                     if price > product.price:
                         product.price = price
@@ -66,7 +65,7 @@ class Product:
 
     @price.setter
     def price(self, value: float) -> None:
-        """Setter for the price attribute with validation and manual confirmation."""
+        """Setter for the price attribute with validation."""
         if value <= 0:
             print("Цена не должна быть нулевая или отрицательная")
             return
@@ -77,3 +76,50 @@ class Product:
                 self.__price = value
         else:
             self.__price = value
+
+
+class Smartphone(Product):
+    """Subclass representing a smartphone."""
+    efficiency: float
+    model: str
+    memory: int
+    color: str
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Subclass representing lawn grass."""
+    country: str
+    germination_period: str
+    color: str
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
