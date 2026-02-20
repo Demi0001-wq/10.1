@@ -20,7 +20,7 @@ def test_category_init() -> None:
 
     assert category.name == "Смартфоны"
     assert category.description == "Description"
-    assert len(category.products) == 2
+    assert len(category.get_products()) == 2
     assert Category.category_count == 1
     assert Category.product_count == 2
 
