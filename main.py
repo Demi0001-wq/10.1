@@ -43,3 +43,26 @@ if __name__ == "__main__":
 
     print(Category.category_count)
     print(Category.product_count)
+
+    # Demonstration of JSON loading
+    from src.utils import load_data
+    import os
+    
+    json_path = os.path.join("..", "..", "..", "..", "..", "Downloads", "products.json")
+    # Actually, the user provided the absolute path: C:\Users\DELL\Downloads\products.json
+    # But since I'm in ecommerce/ subfolder, I can use the absolute path or relative.
+    # User said: "C:\Users\DELL\Downloads\products.json"
+    abs_json_path = r"C:\Users\DELL\Downloads\products.json"
+    
+    if os.path.exists(abs_json_path):
+        print("\n--- Loading data from JSON ---")
+        # Reset counters for demonstration if needed, but the original script doesn't
+        # Actually, the task says "Class attributes should be filled automatically when a new object is initialized."
+        # So we expect counts to increase.
+        
+        loaded_categories = load_data(abs_json_path)
+        for cat in loaded_categories:
+            print(f"Категория: {cat.name}, Продуктов: {len(cat.products)}")
+        
+        print(f"Общее количество категорий: {Category.category_count}")
+        print(f"Общее количество продуктов: {Category.product_count}")
