@@ -1,7 +1,10 @@
 from typing import Any, Optional
 
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Class representing a product in the store."""
     name: str
     description: str
@@ -20,6 +23,8 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        # Call PrintMixin init to trigger log
+        PrintMixin.__init__(self, name, description, price, quantity)
 
     def __str__(self) -> str:
         """
@@ -101,6 +106,31 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
+        # Re-log for subclass specifically if needed, but Product init handles it.
+        # Actually, per requirements: "when an object is created, prints information..."
+        # Product.__init__ calls PrintMixin.__init__.
+        # If we want the specific subclass name in the log, our PrintMixin uses self.__class__.__name__.
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.__price = price
+        self.quantity = quantity
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+        PrintMixin.__init__(self, name, description, price, quantity, efficiency, model, memory, color)
 
 
 class LawnGrass(Product):
@@ -119,7 +149,11 @@ class LawnGrass(Product):
         germination_period: str,
         color: str,
     ) -> None:
-        super().__init__(name, description, price, quantity)
+        self.name = name
+        self.description = description
+        self.__price = price
+        self.quantity = quantity
         self.country = country
         self.germination_period = germination_period
         self.color = color
+        PrintMixin.__init__(self, name, description, price, quantity, country, germination_period, color)
