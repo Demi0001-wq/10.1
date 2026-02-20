@@ -8,7 +8,7 @@ This project implements the foundational logic for an e-commerce platform using 
 - Category Management: Group products and track global category/product statistics.
 - Encapsulation: Private attributes for sensitive data like price and product lists.
 - Data Integrity: Price validation and quantity management.
-- JSON Loading: Ability to deserialize project data from a products.json file.
+- Decorators: Automated function logging to console or file with the log decorator.
 
 ## Installation
 
@@ -31,8 +31,9 @@ This project implements the foundational logic for an e-commerce platform using 
    pip install -r requirements.txt
    ```
 
-## Usage Example
+## Usage Examples
 
+### Product and Category
 ```python
 from src.product import Product
 from src.category import Category
@@ -46,6 +47,17 @@ cat = Category("Smartphones", "Modern mobile devices", [p1, p2])
 
 print(f"Total categories: {Category.category_count}")
 print(f"Total products: {Category.product_count}")
+```
+
+### Logging Decorator
+```python
+from src.decorators import log
+
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return x + y
+
+my_function(1, 2)
 ```
 
 ## Testing

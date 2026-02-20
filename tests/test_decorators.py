@@ -1,64 +1,77 @@
 import os
-from typing import Any
-
+import pytest
 from src.decorators import log
 
 
-def test_log_console_success(capsys: Any) -> None:
+def test_log_console_success(capsys):
+    """Test logging to console on successful execution."""
     @log()
-    def add(x: int, y: int) -> int:
+    def add(x, y):
         return x + y
 
-    assert add(1, 2) == 3
+    result = add(1, 2)
+    assert result == 3
     captured = capsys.readouterr()
     assert captured.out.strip() == "add ok"
-
-
-def test_log_console_error(capsys: Any) -> None:
+    
+    
+def test_log_console_error(capsys):
+    """Test logging to console on error."""
     @log()
-    def divide(x: int, y: int) -> float:
+    def divide(x, y):
         return x / y
 
-    try:
+    with pytest.raises(ZeroDivisionError):
         divide(1, 0)
-    except ZeroDivisionError:
-        pass
-
+    
     captured = capsys.readouterr()
     assert "divide error: ZeroDivisionError. Inputs: (1, 0), {}" in captured.out
 
 
-def test_log_file_success() -> None:
-    filename = "test_log_success.txt"
-    if os.path.exists(filename):
-        os.remove(filename)
-
-    @log(filename=filename)
-    def multiply(x: int, y: int) -> int:
+def test_log_file_success(tmp_path):
+    """Test logging to a file on success."""
+    log_file = tmp_path / "test.log"
+    
+    @log(filename=str(log_file))
+    def multiply(x, y):
         return x * y
 
-    assert multiply(2, 3) == 6
-    with open(filename, "r") as f:
-        content = f.read().strip()
-    assert content == "multiply ok"
-    os.remove(filename)
+    multiply(2, 3)
+    
+    assert log_file.exists()
+    assert log_file.read_text().strip() == "multiply ok"
 
 
-def test_log_file_error() -> None:
-    filename = "test_log_error.txt"
-    if os.path.exists(filename):
-        os.remove(filename)
+def test_log_file_error(tmp_path):
+    """Test logging to a file on error."""
+    log_file = tmp_path / "error.log"
+    
+    @log(filename=str(log_file))
+    def fail():
+        raise ValueError("Oops")
 
-    @log(filename=filename)
-    def fail_func() -> None:
-        raise ValueError("Something went wrong")
+    with pytest.raises(ValueError):
+        fail()
+    
+    assert log_file.exists()
+    content = log_file.read_text().strip()
+    assert "fail error: ValueError. Inputs: (), {}" in content
 
-    try:
-        fail_func()
-    except ValueError:
-        pass
 
-    with open(filename, "r") as f:
-        content = f.read().strip()
-    assert "fail_func error: ValueError. Inputs: (), {}" in content
-    os.remove(filename)
+def test_log_no_args(capsys):
+    """Test decorator without parentheses if supported (though our implementation requires them)."""
+    # Current implementation log() returns a decorator, so @log is not enough.
+    # We must use @log() or @log(filename="...")
+    pass
+
+@log()
+def sample_func():
+    """Sample docstring."""
+    return "done"
+
+
+def test_log_wraps():
+    """Test that decorator preserves function metadata."""
+    assert sample_func.__name__ == "sample_func"
+    assert sample_func.__doc__ == "Sample docstring."
+    assert "logs the execution" not in (sample_func.__doc__ or "")
