@@ -14,8 +14,9 @@ htmlcov/
 test_output.txt
 test_results.txt
 full_test_report.txt
-.idea/
-venv/
-env/
 *.sqlite
 *.db
+db.sqlite3
+config/__pycache__/
+catalog/__pycache__/
+catalog/migrations/
