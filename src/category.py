@@ -38,7 +38,10 @@ class Category(BaseCategory):
     @property
     def products(self) -> str:
         """Getter for localized representation of products."""
-        return "\n".join([str(p) for p in self.__products])
+        result = ""
+        for product in self.__products:
+            result += f"{product}\n"
+        return result
 
     def __str__(self) -> str:
         """String representation of the category."""

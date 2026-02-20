@@ -63,8 +63,45 @@ def test_category_products_getter() -> None:
     p2 = Product("Product B", "D2", 200.0, 20)
     category = Category("C1", "D1", [p1, p2])
     
+    # Each product line should end with a newline
     expected = (
         "Product A, 100.0 руб. Остаток: 10 шт.\n"
         "Product B, 200.0 руб. Остаток: 20 шт.\n"
     )
     assert category.products == expected
+
+
+def test_private_attributes_mangling() -> None:
+    """Verify that private attributes are correctly mangled and not accessible directly."""
+    product = Product("P", "D", 100.0, 10)
+    category = Category("C", "D", [product])
+    
+    # Checking for name mangling
+    with pytest.raises(AttributeError):
+        _ = product.__price
+        
+    with pytest.raises(AttributeError):
+        _ = category.__products
+        
+    # Verify they exist via name mangling
+    assert hasattr(product, "_Product__price")
+    assert hasattr(category, "_Category__products")
+
+
+def test_product_price_setter_with_input(capsys) -> None:
+    """Test price setter logic including lower price confirmation."""
+    product = Product("Test", "Desc", 100.0, 10)
+    
+    # Setting higher price - no input needed
+    product.price = 150.0
+    assert product.price == 150.0
+    
+    # Setting lower price - confirmation 'y'
+    with patch("builtins.input", return_value="y"):
+        product.price = 120.0
+    assert product.price == 120.0
+    
+    # Setting lower price - confirmation 'n'
+    with patch("builtins.input", return_value="n"):
+        product.price = 80.0
+    assert product.price == 120.0

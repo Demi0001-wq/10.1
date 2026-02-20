@@ -20,7 +20,9 @@ def test_category_init() -> None:
 
     assert category.name == "Смартфоны"
     assert category.description == "Description"
-    assert len(category.products) == 2
+    # The 'products' getter now returns a string. To count products, we can check the private list
+    # or count the number of lines in the getter output.
+    assert len(category.products.strip().split("\n")) == 2
     assert Category.category_count == 1
     assert Category.product_count == 2
 
