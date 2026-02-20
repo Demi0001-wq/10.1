@@ -4,27 +4,24 @@ from src.base_product import BaseProduct
 from src.print_mixin import PrintMixin
 
 
-class Product(BaseProduct, PrintMixin):
+class Product(PrintMixin, BaseProduct):
     """Class representing a product in the store."""
     name: str
     description: str
     __price: float
     quantity: int
 
-    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, description: str, price: float, quantity: int, *args: Any, **kwargs: Any) -> None:
         """
         Initialize a product.
-        :param name: Name of the product
-        :param description: Description of the product
-        :param price: Product price (float)
-        :param quantity: Quantity in stock (int)
+        Receives additional args/kwargs to pass to PrintMixin via super().
         """
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        # Call PrintMixin init to trigger log
-        PrintMixin.__init__(self, name, description, price, quantity)
+        # super() calls PrintMixin.__init__ with ALL arguments passed to this constructor
+        super().__init__(name, description, price, quantity, *args, **kwargs)
 
     def __str__(self) -> str:
         """
@@ -101,36 +98,13 @@ class Smartphone(Product):
         memory: int,
         color: str,
     ) -> None:
-        super().__init__(name, description, price, quantity)
+        # We pass local attributes as extra positional arguments to Product.__init__
+        # so they can reach PrintMixin via super() chain.
         self.efficiency = efficiency
         self.model = model
         self.memory = memory
         self.color = color
-        # Re-log for subclass specifically if needed, but Product init handles it.
-        # Actually, per requirements: "when an object is created, prints information..."
-        # Product.__init__ calls PrintMixin.__init__.
-        # If we want the specific subclass name in the log, our PrintMixin uses self.__class__.__name__.
-
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        efficiency: float,
-        model: str,
-        memory: int,
-        color: str,
-    ) -> None:
-        self.name = name
-        self.description = description
-        self.__price = price
-        self.quantity = quantity
-        self.efficiency = efficiency
-        self.model = model
-        self.memory = memory
-        self.color = color
-        PrintMixin.__init__(self, name, description, price, quantity, efficiency, model, memory, color)
+        super().__init__(name, description, price, quantity, efficiency, model, memory, color)
 
 
 class LawnGrass(Product):
@@ -149,11 +123,7 @@ class LawnGrass(Product):
         germination_period: str,
         color: str,
     ) -> None:
-        self.name = name
-        self.description = description
-        self.__price = price
-        self.quantity = quantity
         self.country = country
         self.germination_period = germination_period
         self.color = color
-        PrintMixin.__init__(self, name, description, price, quantity, country, germination_period, color)
+        super().__init__(name, description, price, quantity, country, germination_period, color)

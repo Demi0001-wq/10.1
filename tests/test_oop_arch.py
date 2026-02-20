@@ -1,6 +1,7 @@
 import pytest
-from src.product import Product, Smartphone, LawnGrass
+
 from src.base_product import BaseProduct
+from src.product import LawnGrass, Product, Smartphone
 
 
 def test_base_product_instantiation() -> None:

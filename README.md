@@ -12,6 +12,9 @@ This project implements the foundational logic for an e-commerce platform using 
 - Smart Factory: Automated duplicate detection and merging in the `Product` class.
 - Inheritance: Specialized Smartphone and LawnGrass classes with specific attributes.
 - Type Safety: Addition is restricted to objects of the same class; Categories only accept Product instances.
+- Abstraction: Abstract Base Classes (ABCs) for Products and Categories ensure consistent interfaces.
+- Mixins: Automatic object creation logging with `PrintMixin`.
+- Orders: Dedicated system for processing single-product purchases with total price calc.
 
 ## Installation
 

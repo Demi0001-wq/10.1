@@ -33,6 +33,9 @@ def test_load_data(tmp_path) -> None:
     """
     json_file = tmp_path / "test_products.json"
     json_file.write_text(json_content, encoding="utf-8")
+    # Reset counts because of cumulative testing
+    Category.category_count = 0
+    Category.product_count = 0
     categories = load_data(str(json_file))
     
     assert len(categories) == 1
