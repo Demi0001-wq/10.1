@@ -1,7 +1,9 @@
 from typing import Any, Optional
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
 
-class Product:
+class Product(PrintMixin, BaseProduct):
     """Class representing a product in the store."""
     name: str
     description: str
@@ -24,9 +26,9 @@ class Product:
     def __str__(self) -> str:
         """
         String representation of the product.
-        Format: "Название продукта, X руб. Остаток: X шт."
+        Format: "Название продукта, X.X руб. Остаток: X шт."
         """
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+        return f"{self.name}, {float(self.price)} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other: Any) -> float:
         """
