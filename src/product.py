@@ -1,6 +1,7 @@
 from typing import Any, Optional
 
 from src.base_product import BaseProduct
+from src.exceptions import QuantityError
 from src.print_mixin import PrintMixin
 
 
@@ -15,7 +16,10 @@ class Product(PrintMixin, BaseProduct):
         """
         Initialize a product.
         Receives additional args/kwargs to pass to PrintMixin via super().
+        Raises QuantityError if quantity is zero.
         """
+        if quantity == 0:
+            raise QuantityError("Товар с нулевым количеством не может быть добавлен")
         self.name = name
         self.description = description
         self.__price = price
@@ -98,8 +102,6 @@ class Smartphone(Product):
         memory: int,
         color: str,
     ) -> None:
-        # We pass local attributes as extra positional arguments to Product.__init__
-        # so they can reach PrintMixin via super() chain.
         self.efficiency = efficiency
         self.model = model
         self.memory = memory
