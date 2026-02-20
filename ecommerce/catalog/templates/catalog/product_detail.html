@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }} - Skystore{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        {% if object.image %}
+        <img src="{{ object.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ object.name }}">
+        {% else %}
+        <div
+            class="bg-secondary text-white text-center py-5 rounded h-100 d-flex align-items-center justify-content-center">
+            <h3 class="display-4">No Image</h3>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-6 mt-4 mt-md-0">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ object.category.name }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="display-5 fw-bold">{{ object.name }}</h1>
+        <p class="h3 text-primary mb-4">{{ object.price }} RUB</p>
+
+        <div class="mb-4">
+            <h5>Description</h5>
+            <p class="lead text-muted">{{ object.description }}</p>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" type="button">Buy Now</button>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Catalog</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

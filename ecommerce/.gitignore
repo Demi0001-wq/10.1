@@ -1,0 +1,31 @@
+# IDEs
+.idea/
+.vscode/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tests & Coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs & Temp
+*.log
+test_output.txt
+test_results.txt
+full_test_report.txt
+
+# Databases
+*.sqlite
+*.db
+db.sqlite3
+databases/

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Catalog - {{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center mb-4">
+        <h1 class="display-4">Our Products</h1>
+        <p class="lead">Best gadgets at best prices</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for object in object_list %}
+    <div class="col">
+        <div class="card h-100 product-card shadow-sm">
+            {% if object.image %}
+            <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.name }}">
+            {% else %}
+            <div class="bg-secondary text-white text-center py-5">No Image</div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ object.name }}</h5>
+                <p class="card-text text-muted">{{ object.description|truncatewords:20 }}</p>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+                <span class="h5 mb-0 text-primary">{{ object.price }} RUB</span>
+                <a href="#" class="btn btn-outline-dark btn-sm">Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center mt-5">
+        <div class="alert alert-info">No products found. Please run migrations and load data.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

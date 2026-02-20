@@ -1,0 +1,57 @@
+[
+    {
+        "model": "catalog.category",
+        "pk": 1,
+        "fields": {
+            "name": "Смартфоны",
+            "description": "Современные гаджеты для связи и развлечений"
+        }
+    },
+    {
+        "model": "catalog.category",
+        "pk": 2,
+        "fields": {
+            "name": "Одежда",
+            "description": "Стильная одежда высокого качества"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 1,
+        "fields": {
+            "name": "Samsung Galaxy S23 Ultra",
+            "description": "200MP камера, мощный процессор",
+            "image": "",
+            "category": 1,
+            "price": "120000.00",
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 2,
+        "fields": {
+            "name": "Iphone 15 Pro",
+            "description": "Титановый корпус, новый чип A17",
+            "image": "",
+            "category": 1,
+            "price": "140000.00",
+            "created_at": "2023-10-02T12:00:00Z",
+            "updated_at": "2023-10-02T12:00:00Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 3,
+        "fields": {
+            "name": "Футболка белая",
+            "description": "100% хлопок, универсальный размер",
+            "image": "",
+            "category": 2,
+            "price": "1500.00",
+            "created_at": "2023-10-03T12:00:00Z",
+            "updated_at": "2023-10-03T12:00:00Z"
+        }
+    }
+]
