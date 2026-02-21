@@ -7,12 +7,12 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        with open('catalog_data.json', 'r', encoding='utf-8') as f:
+        with open('catalog/fixtures/catalog_data.json', 'r', encoding='utf-8') as f:
             return json.load(f)
 
     @staticmethod
     def json_read_products():
-        with open('product_data.json', 'r', encoding='utf-8') as f:
+        with open('catalog/fixtures/product_data.json', 'r', encoding='utf-8') as f:
             return json.load(f)
 
     def handle(self, *args, **options):

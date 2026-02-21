@@ -1,23 +1,31 @@
-# My Django Catalog Project
+# Catalog Store - Django Project
 
-Hello! This is my homework project. I used Django and PostgreSQL to make a product catalog.
+This is a professional Django-based web application for an online product catalog.
 
-In this project you can find:
-- catalog: The main folder with my models and views.
-- config: The folder with Django settings.
-- src and tests: My previous homework code.
+## Project Structure
+- `catalog/` - The web application for products and categories.
+- `config/` - The core project settings and URL configuration.
+- `manage.py` - Django's command-line utility for administrative tasks.
+- `requirements.txt` - Project dependencies.
 
-How to start the project:
-1. Install everything with: pip install -r requirements.txt
-2. Create a .env file. I added .env.sample so you know what to put there. Remember to add your database password.
-3. Run migrations: python manage.py migrate
-4. (Optional) You can fill the database with test data: python manage.py fill
-5. Start the site: python manage.py runserver
+## Installation and Setup
+1. Create a virtual environment and activate it.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Set up your `.env` file for database configuration (refer to `.env.sample`).
+4. Run migrations:
+   ```bash
+   python manage.py migrate
+   ```
+5. (Optional) Populate the database with initial data:
+   ```bash
+   python manage.py fill
+   ```
+6. Start the development server:
+   ```bash
+   python manage.py runserver
+   ```
 
-You can then see the site at http://127.0.0.1:8000/
-
-The admin login I created is:
-User: admin
-Pass: admin
-
-Thank you!
+Visit the application at `http://127.0.0.1:8000/`
