@@ -5,11 +5,7 @@ from src.product import Product
 from src.product_iterator import ProductIterator
 
 
-@pytest.fixture(autouse=True)
-def reset_category_counts():
-    """Reset the class-level counters before each test."""
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_product_str() -> None:

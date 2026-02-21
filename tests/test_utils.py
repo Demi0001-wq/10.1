@@ -6,11 +6,7 @@ from src.category import Category
 from src.utils import load_data
 
 
-@pytest.fixture(autouse=True)
-def reset_category_counts():
-    """Reset the class-level counters before each test."""
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_load_data(tmp_path) -> None:
@@ -40,7 +36,7 @@ def test_load_data(tmp_path) -> None:
     
     assert len(categories) == 1
     assert categories[0].name == "Test Category"
-    assert len(categories[0].products) == 1
-    assert categories[0].products[0].name == "Test Product"
+    assert len(categories[0].get_products()) == 1
+    assert categories[0].get_products()[0].name == "Test Product"
     assert Category.category_count == 1
     assert Category.product_count == 1

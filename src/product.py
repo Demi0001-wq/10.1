@@ -16,16 +16,17 @@ class Product(PrintMixin, BaseProduct):
         """
         Initialize a product.
         Receives additional args/kwargs to pass to PrintMixin via super().
-        Raises QuantityError if quantity is zero.
+        Raises ValueError if quantity is zero.
         """
         if quantity == 0:
-            raise QuantityError("Товар с нулевым количеством не может быть добавлен")
-        self.name = name
-        self.description = description
-        self.__price = price
-        self.quantity = quantity
-        # super() calls PrintMixin.__init__ with ALL arguments passed to this constructor
-        super().__init__(name, description, price, quantity, *args, **kwargs)
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+        else:
+            self.name = name
+            self.description = description
+            self.__price = price
+            self.quantity = quantity
+            # super() calls PrintMixin.__init__ with ALL arguments passed to this constructor
+            super().__init__(name, description, price, quantity, *args, **kwargs)
 
     def __str__(self) -> str:
         """

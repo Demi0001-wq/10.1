@@ -7,11 +7,7 @@ from src.order import Order
 from src.product import Product, Smartphone
 
 
-@pytest.fixture(autouse=True)
-def reset_counts():
-    """Reset class-level counters before each test."""
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_base_product_cannot_instantiate():

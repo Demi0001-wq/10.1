@@ -28,7 +28,7 @@ class Category(BaseCategory):
                 # Use add_product to maintain tracking and notifications
                 try:
                     self.add_product(prod)
-                except QuantityError:
+                except ValueError:
                     # During bulk init, we might log or skip invalid products
                     pass
 
@@ -44,12 +44,12 @@ class Category(BaseCategory):
                 raise TypeError("Only products or their subclasses can be added to a category.")
             
             if product.quantity == 0:
-                raise QuantityError("Товар с нулевым количеством не может быть добавлен")
+                raise ValueError("Товар с нулевым количеством не может быть добавлен")
             
             self.__products.append(product)
             Category.product_count += 1
             
-        except (TypeError, QuantityError) as e:
+        except (TypeError, ValueError) as e:
             # Re-raise or handle as needed. Per requirement: "The exception should be raised"
             print(f"Ошибка при добавлении товара: {e}")
             raise
@@ -60,12 +60,16 @@ class Category(BaseCategory):
             # Per requirement: "display a message stating that the product addition has been completed"
             print("Обработка добавления товара завершена")
 
+    def get_products(self) -> list[Product]:
+        """Returns the internal list of products."""
+        return self.__products
+
     @property
     def products(self) -> str:
         """Getter for localized representation of products."""
         return "\n".join([str(p) for p in self.__products])
 
-    def middle_price(self) -> float:
+    def average_price(self) -> float:
         """Calculates the average price of all products in the category."""
         try:
             total_price = sum(p.price for p in self.__products)

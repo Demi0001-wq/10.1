@@ -4,11 +4,7 @@ from src.category import Category
 from src.product import Product
 
 
-@pytest.fixture(autouse=True)
-def reset_category_counts():
-    """Reset the class-level counters before each test."""
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_category_init() -> None:
@@ -20,7 +16,8 @@ def test_category_init() -> None:
 
     assert category.name == "Смартфоны"
     assert category.description == "Description"
-    assert len(category.products) == 2
+    assert "Samsung Galaxy S23 Ultra" in category.products
+    assert "Iphone 15" in category.products
     assert Category.category_count == 1
     assert Category.product_count == 2
 
@@ -36,3 +33,17 @@ def test_multiple_categories() -> None:
 
     assert Category.category_count == 2
     assert Category.product_count == 3
+
+
+def test_category_average_price() -> None:
+    """Test average price calculation in category."""
+    p1 = Product("P1", "D1", 100.0, 10)
+    p2 = Product("P2", "D2", 200.0, 20)
+    category = Category("C", "D", [p1, p2])
+    assert category.average_price() == 150.0
+
+
+def test_category_average_price_empty() -> None:
+    """Test average price for empty category."""
+    category = Category("Empty", "D", [])
+    assert category.average_price() == 0.0

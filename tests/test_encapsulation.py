@@ -6,11 +6,7 @@ from src.category import Category
 from src.product import Product
 
 
-@pytest.fixture(autouse=True)
-def reset_category_counts():
-    """Reset the class-level counters before each test."""
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_product_price_setter_decrease_confirm(capsys) -> None:
@@ -65,6 +61,6 @@ def test_category_products_getter() -> None:
     
     expected = (
         "Product A, 100.0 руб. Остаток: 10 шт.\n"
-        "Product B, 200.0 руб. Остаток: 20 шт.\n"
+        "Product B, 200.0 руб. Остаток: 20 шт."
     )
     assert category.products == expected

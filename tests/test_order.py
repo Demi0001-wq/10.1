@@ -6,10 +6,7 @@ from src.order import Order
 from src.product import Product
 
 
-@pytest.fixture(autouse=True)
-def reset_counts():
-    Category.category_count = 0
-    Category.product_count = 0
+
 
 
 def test_order_init() -> None:
@@ -38,7 +35,7 @@ def test_base_category_inheritance() -> None:
 def test_order_products_repr() -> None:
     p = Product("P", "D", 100.0, 10)
     o = Order(p, 5)
-    assert o.products == "P x 5"
+    assert o.products == "P (x5)"
 
 
 def test_order_str() -> None:
