@@ -1,55 +1,49 @@
-# E-commerce Core Project
+# E-commerce Django Project
 
-This project implements the foundational logic for an e-commerce platform using Object-Oriented Programming (OOP) principles in Python.
+This project is a web application for an e-commerce platform built using the Django framework. It includes a `catalog` application to manage products and categories.
 
 ## Features
 
-- Product Management: Track name, description, price, and quantity.
-- Category Management: Group products and track global category/product statistics.
-- Encapsulation: Private attributes for sensitive data like price and product lists.
-- Data Integrity: Price validation with interactive confirmation for price drops.
-- JSON Loading: Ability to deserialize project data from a `products.json` file.
-- Smart Factory: Automated duplicate detection and merging in the `Product` class.
-- Inheritance: Specialized Smartphone and LawnGrass classes with specific attributes.
-- Type Safety: Addition is restricted to objects of the same class; Categories only accept Product instances.
-- Abstraction: Abstract Base Classes (ABCs) for Products and Categories ensure consistent interfaces.
-- Mixins: Automatic object creation logging with `PrintMixin`.
-- Orders: Dedicated system for processing single-product purchases with total price calc.
+- **Store Catalog**: View products and categories through a web interface.
+- **Home Page**: Welcome screen for the e-commerce store.
+- **Contacts Page**: Contact information for the store.
+- **Admin Interface**: Manage data via the Django admin panel.
 
 ## Installation
 
-This project uses Poetry for dependency management.
+### Prerequisites
+- Python 3.11+
+- Poetry (optional, for dependency management)
 
-1. Ensure you have Python 3.11+ installed.
-2. Install Poetry if you haven't already:
+### Setup with requirements.txt
+1. Clone the repository and navigate to the project root.
+2. Create a virtual environment:
    ```bash
-   pip install poetry
+   python -m venv venv
    ```
-3. Navigate to the project directory:
-   ```bash
-   cd ecommerce
-   ```
+3. Activate the virtual environment:
+   - Windows: `venv\Scripts\activate`
+   - Unix/macOS: `source venv/bin/activate`
 4. Install dependencies:
    ```bash
-   poetry install
+   pip install -r requirements.txt
    ```
 
 ## Usage
 
-To run the demonstration script:
-```bash
-poetry run python main.py
-```
+1. Apply migrations:
+   ```bash
+   python manage.py migrate
+   ```
+2. Start the development server:
+   ```bash
+   python manage.py runserver
+   ```
+3. Access the application at `http://127.0.0.1:8000/`.
 
 ## Testing
 
-To run the unit tests and check coverage:
+Run tests using `pytest`:
 ```bash
-poetry run pytest --cov=src
+pytest
 ```
-
-### Quality Checks
-The project adheres to strict quality standards:
-- Linting: flake8
-- Type Checking: mypy
-- Import Sorting: isort
