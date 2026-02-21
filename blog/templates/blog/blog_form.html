@@ -1,0 +1,47 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{% if object %}Редактировать{% else %}Создать{% endif %} статью - Skystore{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{% if object %}Редактировать статью{% else %}Новая статья{% endif %}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">Заголовок</label>
+                        <input type="text" name="title" class="form-control" id="id_title"
+                            value="{{ object.title|default:'' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_preview" class="form-label">Превью (изображение)</label>
+                        <input type="file" name="preview" class="form-control" id="id_preview" accept="image/*">
+                        {% if object.preview %}
+                        <div class="mt-2 text-muted"><small>Текущее: {{ object.preview }}</small></div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_content" class="form-label">Содержимое</label>
+                        <textarea name="content" class="form-control" id="id_content" rows="10"
+                            required>{{ object.content|default:'' }}</textarea>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="is_published" class="form-check-input" id="id_is_published" {% if
+                            not object or object.is_published %}checked{% endif %}>
+                        <label class="form-check-input" for="id_is_published">Опубликовано</label>
+                    </div>
+                    <div class="d-flex mt-4">
+                        <button type="submit" class="btn btn-success px-4 me-2">Сохранить</button>
+                        <a href="{% if object %}{% url 'blog:view' object.pk %}{% else %}{% url 'blog:list' %}{% endif %}"
+                            class="btn btn-outline-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
