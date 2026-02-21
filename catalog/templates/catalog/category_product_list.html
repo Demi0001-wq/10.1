@@ -1,0 +1,39 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Продукты категории - Skystore{% endblock %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Продукты категории</h1>
+    <p class="lead">Все товары из выбранного раздела</p>
+</div>
+
+<div class="row text-center">
+    {% for product in products %}
+    <div class="col-md-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            </div>
+            <div class="card-body">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid mb-2" alt="{{ product.name }}"
+                    style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
+                <p class="text-start m-3">{{ product.description|truncatechars:100 }}</p>
+                <div class="btn-group">
+                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-sm btn-outline-secondary">View</a>
+                    <button type="button" class="btn btn-sm btn-outline-primary">Купить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p class="lead text-muted">В этой категории пока нет опубликованных товаров.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Назад в каталог</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

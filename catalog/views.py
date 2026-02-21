@@ -2,8 +2,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from django.core.exceptions import PermissionDenied
+from django.core.cache import cache
 from catalog.models import Product, Contact
 from catalog.forms import ProductForm
+from catalog.services import get_products_by_category
+from config.settings import CACHE_ENABLED
 
 class ProductListView(ListView):
     model = Product
@@ -11,15 +14,42 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        if CACHE_ENABLED:
+            key = 'products_list'
+            products = cache.get(key)
+            if products is None:
+                products = super().get_queryset()
+                if not self.request.user.groups.filter(name='Product Moderator').exists() and not self.request.user.is_superuser:
+                    products = products.filter(is_published=True)
+                cache.set(key, list(products))
+            return products
+        
         queryset = super().get_queryset()
         if not self.request.user.groups.filter(name='Product Moderator').exists() and not self.request.user.is_superuser:
             queryset = queryset.filter(is_published=True)
         return queryset
 
+class CategoryProductListView(ListView):
+    template_name = 'catalog/category_product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return get_products_by_category(self.kwargs.get('pk'))
+
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        if CACHE_ENABLED:
+            key = f'product_{self.kwargs.get("pk")}'
+            product = cache.get(key)
+            if product is None:
+                product = super().get_object(queryset)
+                cache.set(key, product)
+            return product
+        return super().get_object(queryset)
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
