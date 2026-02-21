@@ -1,63 +1,23 @@
-# Demi Catalog - Django E-commerce Project
+# My Django Catalog Project
 
-This is a Django-based web application designed for managing a product catalog. The project allows users to browse products, view categories, and submit contact information.
+Hello! This is my homework project. I used Django and PostgreSQL to make a product catalog.
 
-## Project Structure
+In this project you can find:
+- catalog: The main folder with my models and views.
+- config: The folder with Django settings.
+- src and tests: My previous homework code.
 
-- **catalog/**: The main application containing product and category management.
-  - **models.py**: Definitions for `Product`, `Category`, and `Contact`.
-  - **views.py**: Controllers for Home Page and Contacts Page.
-  - **apps.py**: Django application configuration.
-  - **management/commands/**: Custom management commands (e.g., `fill` to populate the database).
-- **config/**: Project settings and root URL configuration.
-- **templates/**: HTML templates using Bootstrap styles.
+How to start the project:
+1. Install everything with: pip install -r requirements.txt
+2. Create a .env file. I added .env.sample so you know what to put there. Remember to add your database password.
+3. Run migrations: python manage.py migrate
+4. (Optional) You can fill the database with test data: python manage.py fill
+5. Start the site: python manage.py runserver
 
-## Prerequisites
+You can then see the site at http://127.0.0.1:8000/
 
-- Python 3.11+
-- PostgreSQL (for Database)
+The admin login I created is:
+User: admin
+Pass: admin
 
-## Installation & Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd demi
-   ```
-
-2. **Set up Virtual Environment**:
-   ```bash
-   python -m venv venv
-   # Activate on Windows:
-   venv\Scripts\activate
-   # Activate on Unix/macOS:
-   source venv/bin/activate
-   ```
-
-3. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configure Environment Variables**:
-   Create a `.env` file in the root directory based on `.env.sample`.
-
-5. **Run Migrations**:
-   ```bash
-   python manage.py migrate
-   ```
-
-6. **(Optional) Load Test Data**:
-   ```bash
-   python manage.py fill
-   ```
-
-7. **Start Server**:
-   ```bash
-   python manage.py runserver
-   ```
-
-The application will be available at `http://127.0.0.1:8000/`.
-
-## Author
-Developed as part of the Django web development course.
+Thank you!

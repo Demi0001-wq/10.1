@@ -1,21 +1,17 @@
 [
     {
-        "model": "catalog.product",
-        "pk": 1,
         "fields": {
             "name": "Smartphone",
-            "description": "Latest generation mobile device",
+            "description": "Flagship device",
             "image": "",
             "category": 1,
             "price": "999.99"
         }
     },
     {
-        "model": "catalog.product",
-        "pk": 2,
         "fields": {
             "name": "T-Shirt",
-            "description": "Comfortable cotton apparel",
+            "description": "100% cotton",
             "image": "",
             "category": 2,
             "price": "19.99"
