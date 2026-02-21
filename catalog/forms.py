@@ -12,10 +12,17 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'image', 'category', 'price')
+        fields = ('name', 'description', 'image', 'category', 'price', 'is_published')
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+        
+        # Hide is_published for regular users
+        if user and not user.has_perm('catalog.can_unpublish_product'):
+            if 'is_published' in self.fields:
+                del self.fields['is_published']
+
         for field_name, field in self.fields.items():
             if isinstance(field.widget, forms.CheckboxInput):
                 field.widget.attrs['class'] = 'form-check-input'
