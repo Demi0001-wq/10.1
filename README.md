@@ -1,24 +1,23 @@
-# Online Catalog Project
+# My Django Catalog Project
 
-Hi! This is my project for the Django course. It is a simple catalog store where I use PostgreSQL and Django ORM to manage products and categories.
+Hello! This is my homework project. I used Django and PostgreSQL to make a product catalog.
 
-## What is in the project
-- catalog: The main folder with my models and views.
-- config: The folder with Django settings.
-- manage.py: Used to run the site.
+Folders in this project:
+- catalog: This is my main app where I have models and views.
+- config: This has the Django settings.
+- src and tests: This is my old code from the first assignments.
 
-## How to set it up
-1. Create a virtual environment and activate it.
-2. Install the requirements:
-   pip install -r requirements.txt
-3. Set up your .env file with your database password (you can use .env.sample as a guide).
-4. Run migrations:
-   python manage.py migrate
-5. (Optional) You can fill the database with my test data:
-   python manage.py fill
-6. Start the site:
-   python manage.py runserver
+How to start the project:
+1. Install everything with: pip install -r requirements.txt
+2. Create a .env file. You can look at .env.sample to see what to put there (don't forget your database password).
+3. Run migrations: python manage.py migrate
+4. (Optional) Load my test stickers and gadgets: python manage.py fill
+5. Start the server: python manage.py runserver
 
-You can then see the site at http://127.0.0.1:8000/
+Then you can go to http://127.0.0.1:8000/ to see the site.
 
-By Student
+The admin login is:
+User: admin
+Pass: admin
+
+Thank you!
