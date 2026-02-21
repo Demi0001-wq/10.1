@@ -19,4 +19,4 @@ full_test_report.txt
 db.sqlite3
 config/__pycache__/
 catalog/__pycache__/
-catalog/migrations/
+# catalog migrations are tracked for task 23
