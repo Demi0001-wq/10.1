@@ -1,15 +1,15 @@
 [
     {
-        "model": "catalog.category",
         "pk": 1,
+        "model": "catalog.category",
         "fields": {
             "name": "Electronics",
             "description": "Gadgets and devices"
         }
     },
     {
-        "model": "catalog.category",
         "pk": 2,
+        "model": "catalog.category",
         "fields": {
             "name": "Clothing",
             "description": "Apparel and accessories"

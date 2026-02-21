@@ -1,63 +1,24 @@
-# Demi Catalog - Django E-commerce Project
+# Online Catalog Project
 
-This is a Django-based web application designed for managing a product catalog. The project allows users to browse products, view categories, and submit contact information.
+Hi! This is my project for the Django course. It is a simple catalog store where I use PostgreSQL and Django ORM to manage products and categories.
 
-## Project Structure
+## What is in the project
+- catalog: The main folder with my models and views.
+- config: The folder with Django settings.
+- manage.py: Used to run the site.
 
-- **catalog/**: The main application containing product and category management.
-  - **models.py**: Definitions for `Product`, `Category`, and `Contact`.
-  - **views.py**: Controllers for Home Page and Contacts Page.
-  - **apps.py**: Django application configuration.
-  - **management/commands/**: Custom management commands (e.g., `fill` to populate the database).
-- **config/**: Project settings and root URL configuration.
-- **templates/**: HTML templates using Bootstrap styles.
-
-## Prerequisites
-
-- Python 3.11+
-- PostgreSQL (for Database)
-
-## Installation & Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd demi
-   ```
-
-2. **Set up Virtual Environment**:
-   ```bash
-   python -m venv venv
-   # Activate on Windows:
-   venv\Scripts\activate
-   # Activate on Unix/macOS:
-   source venv/bin/activate
-   ```
-
-3. **Install Dependencies**:
-   ```bash
+## How to set it up
+1. Create a virtual environment and activate it.
+2. Install the requirements:
    pip install -r requirements.txt
-   ```
-
-4. **Configure Environment Variables**:
-   Create a `.env` file in the root directory based on `.env.sample`.
-
-5. **Run Migrations**:
-   ```bash
+3. Set up your .env file with your database password (you can use .env.sample as a guide).
+4. Run migrations:
    python manage.py migrate
-   ```
-
-6. **(Optional) Load Test Data**:
-   ```bash
+5. (Optional) You can fill the database with my test data:
    python manage.py fill
-   ```
-
-7. **Start Server**:
-   ```bash
+6. Start the site:
    python manage.py runserver
-   ```
 
-The application will be available at `http://127.0.0.1:8000/`.
+You can then see the site at http://127.0.0.1:8000/
 
-## Author
-Developed as part of the Django web development course.
+By Student
