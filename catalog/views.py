@@ -1,15 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_request_or_404
 
 from catalog.models import Product, Contact
 
 def home(request):
     """
     Controller for the home page.
+    Displays all products.
     """
-    latest_products = Product.objects.order_by('-created_at')[:5]
-    for product in latest_products:
-        print(product)
-    return render(request, 'catalog/home.html', {'latest_products': latest_products})
+    products_list = Product.objects.all()
+    return render(request, 'catalog/home.html', {'products': products_list})
+
+def product_detail(request, pk):
+    """
+    Controller for the single product page.
+    Receives product by pk and displays its details.
+    """
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'catalog/product_detail.html', {'product': product})
+
 
 def contacts(request):
     """
