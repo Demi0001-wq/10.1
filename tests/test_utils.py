@@ -33,11 +33,16 @@ def test_load_data(tmp_path) -> None:
     """
     json_file = tmp_path / "test_products.json"
     json_file.write_text(json_content, encoding="utf-8")
+    # Reset counts because of cumulative testing
+    Category.category_count = 0
+    Category.product_count = 0
     categories = load_data(str(json_file))
     
     assert len(categories) == 1
     assert categories[0].name == "Test Category"
-    assert len(categories[0].products) == 1
-    assert categories[0].products[0].name == "Test Product"
+    assert len(categories[0].products.strip().split("\n")) == 1
+    # Access the product via name mangling or from the private list if needed for verification
+    # but here we can just verify the first line matches the expected str(product)
+    assert "Test Product" in categories[0].products
     assert Category.category_count == 1
     assert Category.product_count == 1

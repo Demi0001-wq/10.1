@@ -1,0 +1,24 @@
+[
+    {
+        "model": "catalog.product",
+        "pk": 1,
+        "fields": {
+            "name": "Smartphone",
+            "description": "Latest generation mobile device",
+            "image": "",
+            "category": 1,
+            "price": "999.99"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 2,
+        "fields": {
+            "name": "T-Shirt",
+            "description": "Comfortable cotton apparel",
+            "image": "",
+            "category": 2,
+            "price": "19.99"
+        }
+    }
+]
