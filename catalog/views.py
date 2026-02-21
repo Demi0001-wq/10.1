@@ -1,35 +1,27 @@
-from django.shortcuts import render, get_object_or_request_or_404
-
+from django.views.generic import ListView, DetailView, TemplateView
 from catalog.models import Product, Contact
 
-def home(request):
-    """
-    Controller for the home page.
-    Displays all products.
-    """
-    products_list = Product.objects.all()
-    return render(request, 'catalog/home.html', {'products': products_list})
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
 
-def product_detail(request, pk):
-    """
-    Controller for the single product page.
-    Receives product by pk and displays its details.
-    """
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'catalog/product_detail.html', {'product': product})
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
 
+class ContactTemplateView(TemplateView):
+    template_name = 'catalog/contacts.html'
 
-def contacts(request):
-    """
-    Controller for the contacts page.
-    Handles POST requests from the feedback form.
-    """
-    if request.method == 'POST':
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = Contact.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
-        # Display message to console as required in Task 4
         print(f"New contact message:\nName: {name}\nPhone: {phone}\nMessage: {message}")
-
-    contacts_list = Contact.objects.all()
-    return render(request, 'catalog/contacts.html', {'contacts': contacts_list})
+        return self.get(request, *args, **kwargs)
