@@ -1,49 +1,63 @@
-# E-commerce Django Project
+# Demi Catalog - Django E-commerce Project
 
-This project is a web application for an e-commerce platform built using the Django framework. It includes a `catalog` application to manage products and categories.
+This is a Django-based web application designed for managing a product catalog. The project allows users to browse products, view categories, and submit contact information.
 
-## Features
+## Project Structure
 
-- **Store Catalog**: View products and categories through a web interface.
-- **Home Page**: Welcome screen for the e-commerce store.
-- **Contacts Page**: Contact information for the store.
-- **Admin Interface**: Manage data via the Django admin panel.
+- **catalog/**: The main application containing product and category management.
+  - **models.py**: Definitions for `Product`, `Category`, and `Contact`.
+  - **views.py**: Controllers for Home Page and Contacts Page.
+  - **apps.py**: Django application configuration.
+  - **management/commands/**: Custom management commands (e.g., `fill` to populate the database).
+- **config/**: Project settings and root URL configuration.
+- **templates/**: HTML templates using Bootstrap styles.
 
-## Installation
+## Prerequisites
 
-### Prerequisites
 - Python 3.11+
-- Poetry (optional, for dependency management)
+- PostgreSQL (for Database)
 
-### Setup with requirements.txt
-1. Clone the repository and navigate to the project root.
-2. Create a virtual environment:
+## Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd demi
+   ```
+
+2. **Set up Virtual Environment**:
    ```bash
    python -m venv venv
+   # Activate on Windows:
+   venv\Scripts\activate
+   # Activate on Unix/macOS:
+   source venv/bin/activate
    ```
-3. Activate the virtual environment:
-   - Windows: `venv\Scripts\activate`
-   - Unix/macOS: `source venv/bin/activate`
-4. Install dependencies:
+
+3. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Usage
+4. **Configure Environment Variables**:
+   Create a `.env` file in the root directory based on `.env.sample`.
 
-1. Apply migrations:
+5. **Run Migrations**:
    ```bash
    python manage.py migrate
    ```
-2. Start the development server:
+
+6. **(Optional) Load Test Data**:
+   ```bash
+   python manage.py fill
+   ```
+
+7. **Start Server**:
    ```bash
    python manage.py runserver
    ```
-3. Access the application at `http://127.0.0.1:8000/`.
 
-## Testing
+The application will be available at `http://127.0.0.1:8000/`.
 
-Run tests using `pytest`:
-```bash
-pytest
-```
+## Author
+Developed as part of the Django web development course.
