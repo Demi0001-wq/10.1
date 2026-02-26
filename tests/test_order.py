@@ -38,7 +38,7 @@ def test_base_category_inheritance() -> None:
 def test_order_products_repr() -> None:
     p = Product("P", "D", 100.0, 10)
     o = Order(p, 5)
-    assert o.products == "P x 5"
+    assert o.products == "P (x5)"
 
 
 def test_order_str() -> None:

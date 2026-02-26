@@ -40,7 +40,7 @@ def test_load_data(tmp_path) -> None:
     
     assert len(categories) == 1
     assert categories[0].name == "Test Category"
-    assert len(categories[0].products) == 1
-    assert categories[0].products[0].name == "Test Product"
+    assert len(categories[0].get_products()) == 1
+    assert categories[0].get_products()[0].name == "Test Product"
     assert Category.category_count == 1
     assert Category.product_count == 1
