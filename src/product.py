@@ -3,39 +3,32 @@ from src.exceptions import QuantityError
 from src.print_mixin import PrintMixin
 
 
-class Product(BaseProduct, PrintMixin):
+class Product(PrintMixin, BaseProduct):
     """Class representing a product in the ecommerce project."""
     name: str
     description: str
     __price: float
     quantity: int
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
-        if quantity == 0:
+    def __init__(self, name: str, description: str, price: float, quantity: int, *args):
+        if quantity <= 0:
             raise QuantityError("Товар с нулевым количеством не может быть добавлен")
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        super().__init__()
+        super().__init__(name, description, price, quantity, *args)
 
-    @classmethod
-    def new_product(cls, data: dict, existing_products: list = None):
-        """Creates a new product or updates an existing one."""
-        name = data.get("name")
-        description = data.get("description")
-        price = data.get("price")
-        quantity = data.get("quantity")
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.name}', '{self.description}', {self.price}, {self.quantity})"
 
-        if existing_products:
-            for product in existing_products:
-                if product.name == name:
-                    product.quantity += quantity
-                    if price > product.price:
-                        product.price = price
-                    return product
+    def __str__(self) -> str:
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
-        return cls(name, description, price, quantity)
+    def __add__(self, other):
+        if type(self) is not type(other):
+            raise TypeError("Cannot add products of different classes")
+        return (self.price * self.quantity) + (other.price * other.quantity)
 
     @property
     def price(self) -> float:
@@ -54,16 +47,23 @@ class Product(BaseProduct, PrintMixin):
         
         self.__price = value
 
-    def __str__(self) -> str:
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+    @classmethod
+    def new_product(cls, data: dict, existing_products: list = None):
+        """Creates a new product or merges with an existing one."""
+        name = data.get("name")
+        description = data.get("description")
+        price = data.get("price")
+        quantity = data.get("quantity")
 
-    def __repr__(self) -> str:
-        return f"Product('{self.name}', '{self.description}', {self.price}, {self.quantity})"
+        if existing_products:
+            for product in existing_products:
+                if product.name == name:
+                    product.quantity += quantity
+                    if price > product.price:
+                        product.price = price
+                    return product
 
-    def __add__(self, other):
-        if type(self) is not type(other):
-            raise TypeError("Cannot add products of different classes")
-        return (self.price * self.quantity) + (other.price * other.quantity)
+        return cls(name, description, price, quantity)
 
 
 class Smartphone(Product):
@@ -73,10 +73,10 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
-        super().__init__(name, description, price, quantity)
+        super().__init__(name, description, price, quantity, efficiency, model, memory, color)
 
     def __repr__(self) -> str:
-        return f"Smartphone('{self.name}', '{self.description}', {self.price}, {self.quantity}, {self.efficiency}, '{self.model}', {self.memory}, '{self.color}')"
+        return f"{self.__class__.__name__}('{self.name}', '{self.description}', {self.price}, {self.quantity}, {self.efficiency}, '{self.model}', {self.memory}, '{self.color}')"
 
 
 class LawnGrass(Product):
@@ -85,7 +85,7 @@ class LawnGrass(Product):
         self.country = country
         self.germination_period = germination_period
         self.color = color
-        super().__init__(name, description, price, quantity)
+        super().__init__(name, description, price, quantity, country, germination_period, color)
 
     def __repr__(self) -> str:
-        return f"LawnGrass('{self.name}', '{self.description}', {self.price}, {self.quantity}, '{self.country}', '{self.germination_period}', '{self.color}')"
+        return f"{self.__class__.__name__}('{self.name}', '{self.description}', {self.price}, {self.quantity}, '{self.country}', '{self.germination_period}', '{self.color}')"
